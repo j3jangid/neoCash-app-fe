@@ -6,8 +6,9 @@ import PageHead from '../templets/PageHead'
 import axiosInstance from '../config/axiosInstance'
 import ButtonFormat from '../templets/ButtonFormat'
 import { useGlobalContext } from '../config/globalContext'
-import logo from '../LOGO FILE/HORIZONTAL.png'
+import logo from '../LOGO FILE/3.jpg'
 import { CgProfile } from "react-icons/cg";
+import { FiRefreshCcw } from "react-icons/fi";
 
 
 function Navbar() {
@@ -21,6 +22,7 @@ function Navbar() {
     const [selectedAccount, setSelectedAccount] = useState('')
     const [anchorEl, setAnchorEl] = useState(null);
     const openActionMenu = Boolean(anchorEl);
+    const [apiBalance, setApiBalance] = useState(0)
 
     const handleClickActionMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -77,21 +79,35 @@ function Navbar() {
         window.location.reload()
     }
 
+    async function fetchApiBalance() {
+        try {
+            const response = await axiosInstance.get('/balance')
+            const balance = response.data.data[0].balance
+            setApiBalance(balance)
+        } catch (error) {
+            console.error('Failed to fetch API balance', error);
+        }
+    }
+
     useEffect(() => {
         if (openModelAddWalletBalance) void fetchAccounts()
     }, [openModelAddWalletBalance])
+
+    useEffect(() => {
+        void fetchApiBalance()
+    }, [])
 
 
     return (
         <div>
             <nav className='navbar navbar-expand-lg bg-body-tertiary p-0'>
-                <div className='container-fluid p-2 themeGreenBg'>
+                <div className='container-fluid themeGreenBg p-0'>
                     {/* <div className='d-flex justify-content-between' style={{ width: '100%' }}> */}
-                    <Link className='navbar-brand mb-1' to={`/${userData?.clientId}/dashboard`}>
-                        <img className='img-fluid' style={{ width: '250px' }} src={logo} alt="Neo Cash" />
+                    <Link className='navbar-brand m-0 p-1' to={`/${userData?.clientId}/dashboard`}>
+                        <img className='img-fluid' style={{ maxHeight:'45px' }} src={logo} alt="Neo Cash" />
                     </Link>
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-                        <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+                        <ul className='navbar-nav me-auto mb-lg-0'>
                             <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'dashboard' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/dashboard`}>Dashboard</Link>
                             </li>
@@ -128,13 +144,18 @@ function Navbar() {
                         </ul>
                     </div>
                     <div className='d-flex gap-3'>
-                        <div className='d-flex'>
-                            <input className='form-control me-2 text-end' type='number' disabled value={walletBalance} />
-                            <button className='btn btn-outline-success themeBlueBg themeGreenText' onClick={() => { setOpenModelAddWalletBalance(true) }}><FaPlus /></button>
+                        <div class="input-group">
+                            <input type="text" class="form-control text-end" placeholder="Wallet Balance" disabled value={apiBalance} />
+                            <span class="input-group-text" id="basic-addon1" onClick={fetchApiBalance}>
+                                <FiRefreshCcw />
+                            </span>
                         </div>
-                        <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-                            <span className='navbar-toggler-icon'></span>
-                        </button>
+                        <div class="input-group">
+                            <input type="text" class="form-control text-end" value={walletBalance} disabled />
+                            <span class="input-group-text" id="basic-addon1" onClick={() => { setOpenModelAddWalletBalance(true) }}>
+                                <FaPlus />
+                            </span>
+                        </div>
                     </div>
                     <div>
 

@@ -34,7 +34,7 @@ function PayinList() {
 
     async function fetchPayinList() {
         try {
-            const response = await axiosInstance.get('/payout', {
+            const response = await axiosInstance.get('/payin', {
                 params: {
                     rowsPerPages,
                     pageNumber,
@@ -46,7 +46,7 @@ function PayinList() {
             setPayinList(data)
             setTotalRows(totalCount)
         } catch (error) {
-            console.error('error while fetchingt payout list', error);
+            console.error('error while fetchingt payin list', error);
         }
     }
 
