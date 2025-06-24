@@ -32,7 +32,8 @@ function WhiteLabelAdd({ setOpenModel, fetchWLList }) {
             !formData?.number ||
             !formData?.email?.trim() ||
             !formData?.userName?.trim() ||
-            !formData?.commissionId) return alert('Fill All Filelds')
+            !formData?.payoutChargeId ||
+            !formData?.payinChargeId) return alert('Fill All Filelds')
         const payload = {
             clientId,
             companyName: formData.companyName,
@@ -43,7 +44,8 @@ function WhiteLabelAdd({ setOpenModel, fetchWLList }) {
             email: formData.email.trim(),
             userName: formData.userName.trim(),
             password: 1234,
-            commissionId: formData.commissionId,
+            payoutChargeId: formData.payoutChargeId,
+            payinChargeId: formData.payinChargeId,
             // opningBalance: formData.opningBalance,
             minimumBalance: formData.minimumBalance,
             status: 'active'
@@ -117,8 +119,20 @@ function WhiteLabelAdd({ setOpenModel, fetchWLList }) {
                         <input type="text" id="password" className='form-control' disabled value={1234} />
                     </div>
                     <div className='d-flex justify-content-start gap-2 align-items-center' style={{ width: '100%' }}>
-                        <label htmlFor="commissionId" style={{ width: '150px' }}>Commission Slab:</label>
-                        <select className='form-select' id="commissionId" onChange={changeHandle} value={formData?.commissionId || ''}>
+                        <label htmlFor="payoutChargeId" style={{ width: '150px' }}>Payout Charge:</label>
+                        <select className='form-select' id="payoutChargeId" onChange={changeHandle} value={formData?.payoutChargeId || ''}>
+                            <option value="">Select Commission Slab</option>
+                            {
+                                commissionList &&
+                                commissionList.map((commission, i) => (
+                                    <option key={i} value={commission?.id}>{commission?.name} - {commission?.commission}%</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className='d-flex justify-content-start gap-2 align-items-center' style={{ width: '100%' }}>
+                        <label htmlFor="payinChargeId" style={{ width: '150px' }}>Payin Charge:</label>
+                        <select className='form-select' id="payinChargeId" onChange={changeHandle} value={formData?.payinChargeId || ''}>
                             <option value="">Select Commission Slab</option>
                             {
                                 commissionList &&

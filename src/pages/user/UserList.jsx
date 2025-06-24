@@ -90,12 +90,13 @@ function UserList() {
                             <TableCell className='fw-bold border-0 text-white'>Type</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Name</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>UserName</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Number</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Number</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Email</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Charge</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Payin Charge</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Payout Charge</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Wallet Balance</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Wallet Limit</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Status</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Wallet Balance</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Wallet Limit</TableCell>
                             <TableCell className='fw-bold border-0 text-white' align='right'>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -109,12 +110,13 @@ function UserList() {
                                         <TableCell className='fw-bold border-0'>{user?.type}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.name}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.userName}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{user?.number}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.number}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.email}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{user?.commissionId}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.payinCharge?.commission || 0}%</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.payoutCharge?.commission || 0}%</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.wallet?.walletBalance || 0}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.wallet?.minimumBalance || 0}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.status}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{user?.wallet?.walletBalance || 0}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{user?.wallet?.minimumBalance || 0}</TableCell>
                                         <TableCell className='fw-bold border-0' align='right'>
                                             <div>
                                                 <button className='btn btn-dark' onClick={(e) => handleClickActionMenu(e, user.id)}>
@@ -142,7 +144,7 @@ function UserList() {
                         }
                         {/* <TableRow sx={{ bgcolor: userList?.length % 2 === 0 ? '' : 'white' }}> */}
                         <TableRow sx={{ bgcolor: 'black' }}>
-                            <TableCell colSpan={11} className='fw-bold border-0 p-2'>
+                            <TableCell colSpan={12} className='fw-bold border-0 p-2'>
                                 <Pagination
                                     totalRows={totalRows}
                                     rowsPerPages={rowsPerPages}

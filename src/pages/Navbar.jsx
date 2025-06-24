@@ -9,6 +9,8 @@ import { useGlobalContext } from '../config/globalContext'
 import logo from '../LOGO FILE/3.jpg'
 import { CgProfile } from "react-icons/cg";
 import { FiRefreshCcw } from "react-icons/fi";
+import axios from 'axios'
+import ApiWalletBal from '../adminFiles/ApiWalletBal'
 
 
 function Navbar() {
@@ -22,7 +24,7 @@ function Navbar() {
     const [selectedAccount, setSelectedAccount] = useState('')
     const [anchorEl, setAnchorEl] = useState(null);
     const openActionMenu = Boolean(anchorEl);
-    const [apiBalance, setApiBalance] = useState(0)
+
 
     const handleClickActionMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -79,23 +81,9 @@ function Navbar() {
         window.location.reload()
     }
 
-    async function fetchApiBalance() {
-        try {
-            const response = await axiosInstance.get('/balance')
-            const balance = response.data.data[0].balance
-            setApiBalance(balance)
-        } catch (error) {
-            console.error('Failed to fetch API balance', error);
-        }
-    }
-
     useEffect(() => {
         if (openModelAddWalletBalance) void fetchAccounts()
     }, [openModelAddWalletBalance])
-
-    useEffect(() => {
-        void fetchApiBalance()
-    }, [])
 
 
     return (
@@ -104,7 +92,7 @@ function Navbar() {
                 <div className='container-fluid themeGreenBg p-0'>
                     {/* <div className='d-flex justify-content-between' style={{ width: '100%' }}> */}
                     <Link className='navbar-brand m-0 p-1' to={`/${userData?.clientId}/dashboard`}>
-                        <img className='img-fluid' style={{ maxHeight:'45px' }} src={logo} alt="Neo Cash" />
+                        <img className='img-fluid' style={{ maxHeight: '45px' }} src={logo} alt="Neo Cash" />
                     </Link>
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                         <ul className='navbar-nav me-auto mb-lg-0'>
@@ -144,15 +132,13 @@ function Navbar() {
                         </ul>
                     </div>
                     <div className='d-flex gap-3'>
-                        <div class="input-group">
-                            <input type="text" class="form-control text-end" placeholder="Wallet Balance" disabled value={apiBalance} />
-                            <span class="input-group-text" id="basic-addon1" onClick={fetchApiBalance}>
-                                <FiRefreshCcw />
-                            </span>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" class="form-control text-end" value={walletBalance} disabled />
-                            <span class="input-group-text" id="basic-addon1" onClick={() => { setOpenModelAddWalletBalance(true) }}>
+                        {
+                            userData?.cType === 'NC' && userData?.type === 'admin' &&
+                            <ApiWalletBal />
+                        }
+                        <div className="input-group">
+                            <input type="text" className="form-control text-end" value={walletBalance} disabled />
+                            <span className="input-group-text" id="basic-addon1" onClick={() => { setOpenModelAddWalletBalance(true) }}>
                                 <FaPlus />
                             </span>
                         </div>

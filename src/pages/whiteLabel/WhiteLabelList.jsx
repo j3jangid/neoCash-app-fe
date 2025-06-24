@@ -87,23 +87,24 @@ function WhiteLabelList() {
                             <TableCell className='fw-bold border-0 text-white'>SN</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Type</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Company Name</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Number</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Number</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Email</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>User Name</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>GST</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>PAN</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Charges</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Payout Charges</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Payin Charges</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Wallet Balance</TableCell>
+                            <TableCell className='fw-bold border-0 text-white' align='right'>Wallet Limit</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Status</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Wallet Balance</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Wallet Limit</TableCell>
                             <TableCell className='fw-bold border-0 text-white' align='right'>Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {
                             WLList &&
-                            WLList.map((user, i) => {
-                                const admin = user.users.find(data => data.type === 'admin')
+                            WLList?.map((user, i) => {
+                                const admin = user?.users?.find(data => data?.type === 'admin')
                                 console.log('admin', admin);
 
                                 return (
@@ -111,15 +112,16 @@ function WhiteLabelList() {
                                         <TableCell className='fw-bold border-0'>{user?.serialNumber}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.type}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.companyName}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{user?.contactNumber}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.contactNumber}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.contactEmail}</TableCell>
                                         <TableCell className='fw-bold border-0'>{admin?.userName}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.gst}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.pan}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{admin?.commissionId}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.payinCharge?.commission}%</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{user?.payoutCharge?.commission}%</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{admin?.wallet?.walletBalance || 0}</TableCell>
+                                        <TableCell className='fw-bold border-0' align='right'>{admin?.wallet?.minimumBalance || 0}</TableCell>
                                         <TableCell className='fw-bold border-0'>{user?.status}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{admin?.wallet?.walletBalance || 0}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{admin?.wallet?.minimumBalance || 0}</TableCell>
                                         <TableCell className='fw-bold border-0' align='right'>
                                             <div>
                                                 <button className='btn btn-dark' onClick={(e) => handleClickActionMenu(e, admin.id)}>
@@ -147,7 +149,7 @@ function WhiteLabelList() {
                         }
                         {/* <TableRow sx={{ bgcolor: userList?.length % 2 === 0 ? '' : 'white' }}> */}
                         <TableRow sx={{ bgcolor: 'black' }}>
-                            <TableCell colSpan={13} className='fw-bold border-0 p-2'>
+                            <TableCell colSpan={14} className='fw-bold border-0 p-2'>
                                 <Pagination
                                     totalRows={totalRows}
                                     rowsPerPages={rowsPerPages}

@@ -19,11 +19,24 @@ export const ContextProvider = ({ children }) => {
         }
     }
 
+    const getPublicIP = async () => {
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            // return ; // Example: "106.219.140.237"
+            console.log('data.ip', data.ip);
+
+        } catch (err) {
+            console.error('Failed to fetch IP:', err);
+            return null;
+        }
+    };
+
     useEffect(() => {
         const token = sessionStorage.getItem('token')
         if (token) {
             setLogin(true)
-
+            getPublicIP()
         } else {
             setLogin(false)
         }
