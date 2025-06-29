@@ -63,15 +63,14 @@ function PayinList() {
                             <TableCell className='fw-bold border-0 text-white'>SN</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Date</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Trnx Id</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Bank Name</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Acc. Number</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Holder Name</TableCell>
-                            <TableCell className='fw-bold border-0 text-white'>Ifsc</TableCell>
+                            <TableCell className='fw-bold border-0 text-white'>Name</TableCell>
+                            <TableCell className='fw-bold border-0 text-white'>Number</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Amount</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Charge</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Tax</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Total</TableCell>
                             <TableCell className='fw-bold border-0 text-white'>Status</TableCell>
+                            <TableCell className='fw-bold border-0 text-white'>Setteled</TableCell>
                             <TableCell className='fw-bold border-0 text-white' align='right'>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -83,16 +82,15 @@ function PayinList() {
                                     <TableRow sx={{ bgcolor: i % 2 === 0 ? '' : 'white' }} key={i}>
                                         <TableCell className='fw-bold border-0'>{payin?.serialNumber}</TableCell>
                                         <TableCell className='fw-bold border-0'>{payin?.createdAt?.split('T')[0]}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.payinNumber}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.tnnxNumber}</TableCell>
                                         <TableCell className='fw-bold border-0'>{payin?.toLedger?.name}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.toLedger?.accountNumber}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.toLedger?.holderName}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.toLedger?.ifsc}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.bank?.[0]?.amount}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.commission?.[0]?.amount || 0}</TableCell>
-                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.tax?.[0]?.amount || 0}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.toLedger?.number}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.payin?.amount}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.commission?.amount || 0}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.groupedLedgerEntries?.tax?.amount || 0}</TableCell>
                                         <TableCell className='fw-bold border-0'>{payin?.amount}</TableCell>
                                         <TableCell className='fw-bold border-0'>{payin?.status}</TableCell>
+                                        <TableCell className='fw-bold border-0'>{payin?.settled ? 'Success' : 'Pending'}</TableCell>
                                         <TableCell className='fw-bold border-0' align='right'>
                                             <div>
                                                 <button className='btn btn-dark' onClick={(e) => handleClickActionMenu(e, payin.id)}>

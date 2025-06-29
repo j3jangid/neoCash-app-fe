@@ -87,7 +87,7 @@ function PayoutList() {
                   <TableRow sx={{ bgcolor: i % 2 === 0 ? '' : 'white' }} key={i}>
                     <TableCell className='fw-bold border-0'>{payout?.serialNumber}</TableCell>
                     <TableCell className='fw-bold border-0'>{payout?.createdAt?.split('T')[0]}</TableCell>
-                    <TableCell className='fw-bold border-0'>{payout?.payoutNumber}</TableCell>
+                    <TableCell className='fw-bold border-0'>{payout?.tnnxNumber}</TableCell>
                     <TableCell className='fw-bold border-0'>{payout?.toLedger?.name}</TableCell>
                     <TableCell className='fw-bold border-0'>{payout?.toLedger?.accountNumber}</TableCell>
                     <TableCell className='fw-bold border-0'>{payout?.toLedger?.holderName}</TableCell>

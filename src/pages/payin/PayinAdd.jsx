@@ -14,11 +14,14 @@ function PayinAdd({ setOpenModel, fetchPayinList }) {
 
     async function submitHandle() {
         try {
-            await axiosInstance.post('/payin', {
+            const response = await axiosInstance.post('/payin', {
                 customerId,
                 amount,
                 remark
             })
+
+            console.log('response', response);
+
 
             // setOpenModel(false)
             void fetchPayinList()

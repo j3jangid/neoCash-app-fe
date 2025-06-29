@@ -117,18 +117,18 @@ function Navbar() {
                             <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'payout' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/payout`}>Payout</Link>
                             </li>
-                            <li className='nav-item'>
+                            {/* <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'payin' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/payin`}>Payin</Link>
-                            </li>
-                            <li className='nav-item'>
+                            </li> */}
+                            {/* <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'ledger-report' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/ledger-report`}>Ledger Report</Link>
-                            </li>
+                            </li> */}
                             <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'user' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/user`}>User</Link>
                             </li>
-                            <li className='nav-item'>
+                            {/* <li className='nav-item'>
                                 <Link className={`nav-link ${currentPage === 'whiteLabel' ? 'activeNavMenu' : ''}`} to={`/${userData?.clientId}/whiteLabel`}>White Label</Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                     <div className='d-flex gap-3'>
